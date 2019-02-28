@@ -50,7 +50,8 @@ class MemeUtil {
         console.log(memeClient);
         memeClient.onmessage = function (event) {
             var jsonObj = JSON.parse(event.data);
-            var message = jsonObj.userId + ": " + jsonObj.boardId;
+            var message = jsonObj.userId + "-> " + jsonObj.boardId + ", vote: " + jsonObj.vote;
+
             alert("Voting is started: " + message);
         };
     }
@@ -71,9 +72,11 @@ class MemeUtil {
         return new WebSocket(endPointURL);
     }
 
-    static sendMessage(ws, userId, boardId) {
+    static sendMessage(ws, userId, boardId, vote) {
             ws.send(JSON.stringify({
-                      "userId" : userId, "boardId" : boardId
+                      "userId" : userId,
+                      "boardId" : boardId,
+                      "vote" : vote
                        })
             );
     }
