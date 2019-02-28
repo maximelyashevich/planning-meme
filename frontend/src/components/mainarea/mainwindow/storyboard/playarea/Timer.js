@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import StartButton from "./StartButton";
 import MemeUtil from "../../../../../util/MemeUtil";
 import {BOARD_URL_REGEX} from "../../../../../util/TextConstant";
+import {USER_COOKIE_NAME} from "../../../../../util/TextConstant";
 import axios from "axios";
 import $ from 'jquery';
 
@@ -86,7 +87,8 @@ class Timer extends Component {
 
         console.log(this.props.webSocketSession);
         let boardId = MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href);
-        MemeUtil.sendMessage(this.props.webSocketSession, boardId);
+        let userId = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).id;
+        MemeUtil.sendMessage(this.props.webSocketSession, userId, boardId);
 
         let updStory = { setStartTime: true };
         axios.put("/meme/users/current-user/boards/"
@@ -141,7 +143,9 @@ class Timer extends Component {
 
          console.log(this.props.webSocketSession);
          let boardId = MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href);
-         MemeUtil.sendMessage(this.props.webSocketSession, boardId);
+
+         let userId = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).id;
+         MemeUtil.sendMessage(this.props.webSocketSession, userId, boardId);
         //this.props.onReloadPage();
     }
 

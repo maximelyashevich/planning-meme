@@ -47,28 +47,33 @@ class MemeUtil {
     }
 
     static connect(memeClient){
+        console.log(memeClient);
         memeClient.onmessage = function (event) {
             var jsonObj = JSON.parse(event.data);
-            var message = jsonObj.user + ": " + jsonObj.boardId;
+            var message = jsonObj.userId + ": " + jsonObj.boardId;
             alert("Voting is started: " + message);
         };
     }
 
     static disconnect(memeClient) {
-        memeClient.close();
+        if (typeof(memeClient) != 'undefined') {
+            alert("disconnect");
+            memeClient.close();
+        }
     }
 
     static initializeTeamMember(){
         let host = window.location.host;
         let path = window.location.pathname;
         let webCtx = path.substring(0, path.indexOf('/', 1));
+        //for sap cloud change to wss
         let endPointURL = "ws://" + window.location.host + webCtx + "/meme/start";
         return new WebSocket(endPointURL);
     }
 
-    static sendMessage(ws, boardId) {
+    static sendMessage(ws, userId, boardId) {
             ws.send(JSON.stringify({
-                      "user" : "1", "boardId" : boardId
+                      "userId" : userId, "boardId" : boardId
                        })
             );
     }
