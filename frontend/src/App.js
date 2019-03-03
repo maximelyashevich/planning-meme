@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import NavigationBar from "./components/navigation/NavigationBar";
 import MainArea from "./components/mainarea/MainArea";
 import MemeUtil from "./util/MemeUtil";
+import {MEME_START_ENDPOINT} from "./util/TextConstant";
 import Footer from "./components/mainarea/footer/Footer";
 import { Route, Redirect, Switch } from "react-router-dom";
 import BoardArea from "./components/mainarea/mainwindow/boardarea/BoardArea";
@@ -35,21 +36,21 @@ class App extends Component {
             webSocketSession: null
         }
 
-        this.initializeWebSocketConnection();
+        this.initializeWebSocketConnection(MEME_START_ENDPOINT);
 
         this.handleAuthStatusChange = this.handleAuthStatusChange.bind(this);
     }
 
-    initializeWebSocketConnection() {
+    initializeWebSocketConnection(endpoint) {
         if (this.state.isLoggedIn) {
              if (this.state.webSocketSession!=null){
                 MemeUtil.disconnect();
              }
-             let webSocketSessionValue = MemeUtil.initializeTeamMember();
+
+             let webSocketSessionValue = MemeUtil.initializeWebSocket(endpoint);
              this.state.webSocketSession = webSocketSessionValue;
 
              console.log(this.state.webSocketSession.readyState);
-             MemeUtil.connect(this.state.webSocketSession);
         }
     }
 
@@ -58,7 +59,7 @@ class App extends Component {
             isLoggedIn: !state.isLoggedIn
         }));
 
-        this.initializeWebSocketConnection();
+        this.initializeWebSocketConnection(MEME_START_ENDPOINT);
 
         window.localStorage.setItem("isLoggedIn", this.state.isLoggedIn);
     }

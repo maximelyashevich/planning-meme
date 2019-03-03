@@ -20,7 +20,10 @@ class Timer extends Component {
             result: null
         };
 
+        console.log("Page was uploaded.");
+
         this.startTimer = this.startTimer.bind(this);
+        this.initTimer = this.initTimer.bind(this);
         this.stopTimer = this.stopTimer.bind(this);
         this.vote = this.vote.bind(this);
         this.loadStory = this.loadStory.bind(this);
@@ -80,6 +83,7 @@ class Timer extends Component {
     }
 
     initTimer() {
+         console.log("Init timer...");
          this.setState({
                isOn: true,
                start: Date.now()
@@ -91,7 +95,6 @@ class Timer extends Component {
     }
 
     startTimer = () => {
-        this.initTimer();
 
         console.log(this.props.webSocketSession);
         let boardId = MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href);
@@ -174,18 +177,40 @@ class Timer extends Component {
     }
 
     render() {
-        let start = (this.props.isUserAdminOfBoard ===true && this.state.time === 0)
+        this.props.webSocketSession.onmessage = (event) => {
+            //console.log(memeClient);
+            var jsonObj = JSON.parse(event.data);
+            var message = jsonObj.userId + "-> " + jsonObj.boardId + ", vote: " + jsonObj.vote;
+
+             console.log("Init timer...");
+                            this.setState({
+                                isOn: true,
+                                start: Date.now()
+                            });
+
+                            this.timer = setInterval(() => this.setState({
+                                time: Date.now() - this.state.start
+                            }), 1000);
+            if (!isUserAdmin){
+
+            }
+
+            alert("Voting is started: " + message);
+        };
+        let isUserAdmin = this.props.isUserAdminOfBoard;
+        let start = (isUserAdmin && this.state.time === 0)
             ? <div onClick={this.startTimer}><StartButton name={"Start voting"}/></div>
             : null;
-        let stop = (this.props.isUserAdminOfBoard && (this.state.time !=0 && this.state.isOn))
+        let stop = (isUserAdmin && (this.state.time !=0 && this.state.isOn))
             ? <div onClick={this.stopTimer}><StartButton name={"Finish voting"}/></div>
             : null;
             //&& this.state.time != 0
-        let vote = (!this.props.isUserAdminOfBoard && !this.state.isVoted)
+        let vote = (!isUserAdmin && !this.state.isVoted)
             ? <div onClick={this.vote}><StartButton name={"Vote"}/></div>
             : null;
 
         let result = null;
+
         if (!this.state.isOn && this.state.start > 0 && this.state.chosenCardId!=0){
             this.changeImg(this.state.chosenCardId);
             result = <div><i>Your vote: </i><b>{this.state.result}</b></div>

@@ -46,16 +46,6 @@ class MemeUtil {
             $(id).click();
     }
 
-    static connect(memeClient){
-        console.log(memeClient);
-        memeClient.onmessage = function (event) {
-            var jsonObj = JSON.parse(event.data);
-            var message = jsonObj.userId + "-> " + jsonObj.boardId + ", vote: " + jsonObj.vote;
-
-            alert("Voting is started: " + message);
-        };
-    }
-
     static disconnect(memeClient) {
         if (typeof(memeClient) != 'undefined') {
             alert("disconnect");
@@ -63,13 +53,30 @@ class MemeUtil {
         }
     }
 
-    static initializeTeamMember(){
+    static initializeWebSocket(endpoint) {
         let host = window.location.host;
         let path = window.location.pathname;
         let webCtx = path.substring(0, path.indexOf('/', 1));
         //for sap cloud change to wss
-        let endPointURL = "ws://" + window.location.host + webCtx + "/meme/start";
+        let endPointURL = "ws://" + window.location.host + webCtx + endpoint;
         return new WebSocket(endPointURL);
+    }
+
+    static startVoting(ws, text, userId, boardId) {
+                ws.send(JSON.stringify({
+                          "userId" : userId,
+                          "boardId" : boardId
+                           })
+                );
+    }
+
+    static finishVoting(ws, userId, boardId, vote) {
+                ws.send(JSON.stringify({
+                          "userId" : userId,
+                          "boardId" : boardId,
+                          "vote" : vote
+                           })
+                );
     }
 
     static sendMessage(ws, userId, boardId, vote) {
