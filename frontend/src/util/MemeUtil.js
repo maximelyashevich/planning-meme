@@ -62,7 +62,7 @@ class MemeUtil {
         return new WebSocket(endPointURL);
     }
 
-    static startVoting(ws, text, userId, boardId) {
+    static startVoting(ws, userId, boardId) {
                 ws.send(JSON.stringify({
                           "userId" : userId,
                           "boardId" : boardId
@@ -70,11 +70,10 @@ class MemeUtil {
                 );
     }
 
-    static finishVoting(ws, userId, boardId, vote) {
+    static finishVoting(ws, userId, boardId) {
                 ws.send(JSON.stringify({
                           "userId" : userId,
-                          "boardId" : boardId,
-                          "vote" : vote
+                          "boardId" : boardId
                            })
                 );
     }

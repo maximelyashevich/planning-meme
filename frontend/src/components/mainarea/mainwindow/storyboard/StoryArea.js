@@ -212,7 +212,9 @@ class StoryArea extends Component {
                                    <PlayAreaWrapper isUserMemberOfBoard={this.state.isUserMemberOfBoard}
                                                     isUserAdminOfBoard={this.state.isUserAdminOfBoard}
                                                     storyName={this.state.storyName}
-                                                    webSocketSession={this.props.webSocketSession}
+                                                    boardId={this.state.boardId}
+                                                    webSocketStartVoting={this.props.webSocketStartVoting}
+                                                    webSocketFinishVoting={this.props.webSocketFinishVoting}
                                                     onReloadPage={this.reloadPage}
                                                     {...props}/>}/>
                         <div>

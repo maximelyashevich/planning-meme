@@ -21,10 +21,13 @@ class MainNavigation extends React.Component {
          MemeUtil.deleteCookieByName(USER_COOKIE_NAME);
 
          window.localStorage.removeItem("isLoggedIn");
-         if(this.props.webSocketSession !=null){
-            //sessionStorage.setItem("webSocket", "");
-            MemeUtil.disconnect(this.props.webSocketSession);
+         if(this.props.webSocketStartVoting != null){
+            MemeUtil.disconnect(this.props.webSocketStartVoting);
          }
+
+          if(this.props.webSocketFinishVoting != null){
+              MemeUtil.disconnect(this.props.webSocketFinishVoting);
+          }
     }
 
     componentDidMount() {

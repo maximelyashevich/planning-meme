@@ -95,12 +95,11 @@ class Timer extends Component {
     }
 
     startTimer = () => {
-
-        console.log(this.props.webSocketSession);
+        console.log(this.props.webSocketStartVoting);
         let boardId = MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href);
         let userId = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).id;
         let vote = -1;
-        MemeUtil.sendMessage(this.props.webSocketSession, userId, boardId, vote);
+        MemeUtil.startVoting(this.props.webSocketStartVoting, userId, boardId);
 
         let updStory = { setStartTime: true };
         axios.put("/meme/users/current-user/boards/"
@@ -145,7 +144,7 @@ class Timer extends Component {
 
                 let userId = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).id;
 
-                MemeUtil.sendMessage(this.props.webSocketSession, userId, boardId, voteValue);
+                MemeUtil.sendMessage(this.props.webSocketStartVoting, userId, boardId, voteValue);
             })
             .catch(err => {
                 console.log(err.response.data);
@@ -153,17 +152,13 @@ class Timer extends Component {
     }
 
     stopTimer() {
-
-         clearInterval(this.timer);
-
-         console.log(this.props.webSocketSession);
+         console.log(this.props.webSocketFinishVoting);
          let boardId = MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href);
 
          let userId = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).id;
 
          let vote = this.state.result;
-         MemeUtil.sendMessage(this.props.webSocketSession, userId, boardId, vote);
-        //this.props.onReloadPage();
+         MemeUtil.finishVoting(this.props.webSocketFinishVoting, userId, boardId);
     }
 
     changeImg(id) {
@@ -177,12 +172,18 @@ class Timer extends Component {
     }
 
     render() {
-        this.props.webSocketSession.onmessage = (event) => {
-            //console.log(memeClient);
-            var jsonObj = JSON.parse(event.data);
-            var message = jsonObj.userId + "-> " + jsonObj.boardId + ", vote: " + jsonObj.vote;
 
-             console.log("Init timer...");
+        let isUserAdmin = this.props.isUserAdminOfBoard;
+        let isUserMemberOfBoard = this.props.isUserMemberOfBoard;
+        let boardId = this.props.boardId;
+
+        this.props.webSocketStartVoting.onmessage = (event) => {
+            let jsonObj = JSON.parse(event.data);
+            let targetBoardId = jsonObj.boardId;
+            let message = jsonObj.userId + "-> " + targetBoardId;
+            if (isUserMemberOfBoard && targetBoardId === boardId) {
+
+                console.log("Init timer...");
                             this.setState({
                                 isOn: true,
                                 start: Date.now()
@@ -191,13 +192,24 @@ class Timer extends Component {
                             this.timer = setInterval(() => this.setState({
                                 time: Date.now() - this.state.start
                             }), 1000);
-            if (!isUserAdmin){
+                if (!isUserAdmin){
 
+                }
+
+                alert("Voting is started: " + message);
             }
-
-            alert("Voting is started: " + message);
         };
-        let isUserAdmin = this.props.isUserAdminOfBoard;
+
+        this.props.webSocketFinishVoting.onmessage = (event) => {
+               let jsonObj = JSON.parse(event.data);
+               let targetBoardId = jsonObj.boardId;
+               let message = jsonObj.userId + "-> " + targetBoardId;
+               if (isUserMemberOfBoard && targetBoardId === boardId) {
+                  clearInterval(this.timer);
+                  alert("Voting was finished: " + message);
+               }
+        };
+
         let start = (isUserAdmin && this.state.time === 0)
             ? <div onClick={this.startTimer}><StartButton name={"Start voting"}/></div>
             : null;
