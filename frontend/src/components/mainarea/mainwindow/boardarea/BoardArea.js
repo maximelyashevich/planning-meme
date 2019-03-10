@@ -53,7 +53,7 @@ class BoardArea extends Component {
         this.setState(() => ({
             boardNameToEdit: e
         }));
-    }
+    };
 
     checkBoardCount() {
         axios.get('/meme/users/current-user/')

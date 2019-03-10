@@ -34,7 +34,7 @@ class EditBoard extends Component {
              MemeUtil.closeModal("#closeEditBoardButton");
         }
         return false;
-    }
+    };
 
     onInputChange = (e) => this.setState({
         name: e.target.value

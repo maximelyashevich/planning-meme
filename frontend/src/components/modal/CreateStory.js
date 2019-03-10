@@ -38,7 +38,7 @@ class CreateStory extends Component {
             MemeUtil.closeModal("#closeStoryButton");
          }
          return false;
-    }
+    };
 
     addValue = (e) => {
         e.preventDefault();

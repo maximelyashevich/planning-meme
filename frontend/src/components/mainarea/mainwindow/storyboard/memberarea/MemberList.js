@@ -3,7 +3,6 @@ import axios from "axios";
 import MemberElement from "./MemberElement";
 import MemeUtil from "../../../../../util/MemeUtil";
 import {BOARD_URL_REGEX} from "../../../../../util/TextConstant";
-import {USER_COOKIE_NAME} from "../../../../../util/TextConstant";
 import $ from 'jquery';
 
 
@@ -72,14 +71,14 @@ class MemberList extends Component {
             <div className="text-center" style={styleUserList}>
                 Member List
                 <div className="spinner circles">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
                 </div>
 
                 <ul className="list-group" style={uListStyle}>

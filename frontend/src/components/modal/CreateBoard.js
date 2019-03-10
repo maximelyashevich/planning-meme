@@ -51,7 +51,7 @@ class CreateBoard extends Component {
              MemeUtil.closeModal("#closeButton");
         }
         return false;
-    }
+    };
 
     validateBoardName() {
         let name = "Empty";

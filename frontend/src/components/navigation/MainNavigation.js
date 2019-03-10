@@ -28,7 +28,7 @@ class MainNavigation extends React.Component {
           if(this.props.webSocketFinishVoting != null){
               MemeUtil.disconnect(this.props.webSocketFinishVoting);
           }
-    }
+    };
 
     componentDidMount() {
         try{

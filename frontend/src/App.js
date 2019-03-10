@@ -32,7 +32,7 @@ class App extends Component {
         let status = window.localStorage.getItem("isLoggedIn");
 
         this.state = {
-            isLoggedIn: status === "true" ? true : false,
+            isLoggedIn: status === "true",
             webSocketStartVoting: null,
             webSocketFinishVoting: null
         }
@@ -51,11 +51,11 @@ class App extends Component {
 
              let webSocketValue = MemeUtil.initializeWebSocket(endpoint);
 
-             if (endpoint == MEME_START_ENDPOINT) {
+             if (endpoint === MEME_START_ENDPOINT) {
                  this.state.webSocketStartVoting = webSocketValue;
              }
 
-              if (endpoint == MEME_FINISH_ENDPOINT) {
+              if (endpoint === MEME_FINISH_ENDPOINT) {
                  this.state.webSocketFinishVoting = webSocketValue;
               }
         }

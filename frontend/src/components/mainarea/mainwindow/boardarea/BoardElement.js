@@ -11,7 +11,6 @@ import {
     TableTrClickableTitle
 } from "../style/MainWindowStyle";
 import MemeUtil from "../../../../util/MemeUtil";
-import $ from "jquery"
 
 class BoardElement extends Component {
 

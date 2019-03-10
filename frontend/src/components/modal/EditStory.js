@@ -34,7 +34,8 @@ class EditStory extends Component {
              MemeUtil.closeModal("#closeEditStoryButton");
         }
         return false;
-    }
+    };
+
     onInputChange = (e) => this.setState({
         description: e.target.value
     });

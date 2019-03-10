@@ -213,17 +213,17 @@ class Timer extends Component {
         let start = (isUserAdmin && this.state.time === 0)
             ? <div onClick={this.startTimer}><StartButton name={"Start voting"}/></div>
             : null;
-        let stop = (isUserAdmin && (this.state.time !=0 && this.state.isOn))
+        let stop = (isUserAdmin && (this.state.time !==0 && this.state.isOn))
             ? <div onClick={this.stopTimer}><StartButton name={"Finish voting"}/></div>
             : null;
             //&& this.state.time != 0
-        let vote = (!isUserAdmin && !this.state.isVoted)
+        let vote = (!this.props.isUserAdminOfBoard && !this.state.isVoted)
             ? <div onClick={this.vote}><StartButton name={"Vote"}/></div>
             : null;
 
         let result = null;
 
-        if (!this.state.isOn && this.state.start > 0 && this.state.chosenCardId!=0){
+        if (!this.state.isOn && this.state.start > 0 && this.state.chosenCardId!==0){
             this.changeImg(this.state.chosenCardId);
             result = <div><i>Your vote: </i><b>{this.state.result}</b></div>
         }

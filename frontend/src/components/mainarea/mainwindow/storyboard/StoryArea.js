@@ -82,7 +82,7 @@ class StoryArea extends Component {
         this.setState(() => ({
            storyNameToEdit: e
         }));
-    }
+    };
 
     checkStoryCount(boardId) {
         axios.get('/meme/users/current-user/boards/' + boardId)

@@ -22,7 +22,7 @@ class PlayAreaWrapper extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.location != this.props.location) {
+        if (prevProps.location !== this.props.location) {
             let boardId = MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href);
             let storyId = this.props.match.params.storyId;
 
