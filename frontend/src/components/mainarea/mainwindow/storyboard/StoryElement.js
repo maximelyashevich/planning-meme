@@ -38,8 +38,9 @@ class StoryElement extends Component {
 
     render() {
         console.log(this.props.isUserAdminOfBoard);
+
         return (
-            <TableTrClickableTitle>
+            <TableTrClickableTitle isFinished={this.props.finishTime}>
                 <TableNamedTd onClick={ this.goToStory }>{this.props.description}</TableNamedTd>
                 <TableHiddenXs onClick={ this.goToStory }>{String(this.props.startTime).replace('T', ' / ')} </TableHiddenXs>
                 <TableHiddenXs onClick={ this.goToStory }>{String(this.props.finishTime).replace('T', ' / ')}</TableHiddenXs>

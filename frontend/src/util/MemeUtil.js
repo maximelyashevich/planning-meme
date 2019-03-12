@@ -48,7 +48,6 @@ class MemeUtil {
 
     static disconnect(memeClient) {
         if (typeof(memeClient) !== 'undefined') {
-            alert("disconnect");
             memeClient.close();
         }
     }
