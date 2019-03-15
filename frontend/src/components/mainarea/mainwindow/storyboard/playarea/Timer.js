@@ -16,6 +16,7 @@ class Timer extends Component {
             start: 0,
             isOn: false,
             isVoted: false,
+            isFinished: false,
             time: 0,
             chosenCardId: 0,
             result: null
@@ -27,7 +28,6 @@ class Timer extends Component {
         this.stopTimer = this.stopTimer.bind(this);
         this.vote = this.vote.bind(this);
         this.loadStory = this.loadStory.bind(this);
-        //this.refreshTimer = this.refreshTimer.bind(this);
 
         this.loadStory();
     }
@@ -36,7 +36,6 @@ class Timer extends Component {
         //window.clearInterval(this.timer);
         if (this.props.location != prevProps.location) {
             console.log("component did update");
-            //this.refreshTimer();
             this.loadStory();
         } else {
 //            if (this.state.start != 0 && this.timer == undefined) {
@@ -46,16 +45,6 @@ class Timer extends Component {
 //            }
         }
     }
-
-    /*refreshTimer() {
-        console.log("refresh timer");
-        window.clearInterval(this.timer);
-        this.setState({
-            start: 0,
-            isOn: false,
-            time: 0
-        });
-    }*/
 
     componentWillUnmount() {
         //window.clearInterval(this.timer);
@@ -123,6 +112,7 @@ class Timer extends Component {
 
     vote() {
         let voteValue = $('.filterImg').attr('alt');
+        let userId = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).id;
 
         this.setState({
                result: voteValue,
@@ -137,14 +127,27 @@ class Timer extends Component {
             setFinishTime: true,
             estimation: voteValue
         };
+
+        axios.put("/meme/users/current-user/boards/"
+            + boardId
+            + "/stories/"
+            + this.props.match.params.storyId, updStory)
+            .then(res => {
+                console.log(res.data);
+                let username = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).username;
+                MemeUtil.vote(this.props.webSocketVote, userId, username, boardId, voteValue);
+            })
+            .catch(err => {
+                console.log(err.response.data);
+        });
     }
 
     stopTimer = ()=>{
          this.setState({
-             isOn: false
+             isOn: false,
+             isFinished: true
          });
 
-         MemeUtil.disconnect(this.props.webSocketStartVoting);
          let boardId = MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href);
 
          let userId = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).id;
@@ -196,15 +199,14 @@ class Timer extends Component {
 
             $(document).ready(function(){
                  $.notify({
-                   	title: 'Voting is starting...',
+                   	title: 'Voting is starting.',
                    	message: 'Board: '+ targetBoardId + ', story: ' + storyId,
-                  	url: window.location.host + window.location.pathname
                  },{
                     element: "body",
                    	type: "info",
                    	allow_dismiss: true,
                    	newest_on_top: true,
-                   	offset: 80,
+                   	offset: 90,
                    	placement: {
                    		from: "top",
                     	align: "right"
@@ -229,6 +231,38 @@ class Timer extends Component {
             }
         };
 
+        this.props.webSocketVote.onmessage = (event) => {
+
+             let jsonObj = JSON.parse(event.data);
+             let targetBoardId = jsonObj.boardId;
+             let message = jsonObj.userId + "-> " + targetBoardId;
+
+             if (isUserMemberOfBoard && targetBoardId == boardId) {
+
+              $(document).ready(function(){
+                       $.notify({
+                          title: 'Successful voting.',
+                          message: jsonObj.username + ' has just voted.',
+                       },{
+                       element: "body",
+                       type: "info",
+                       allow_dismiss: true,
+                       newest_on_top: true,
+                       offset: 90,
+                       placement: {
+                          from: "top",
+                          align: "right"
+                       }
+                     });
+                });
+
+                console.log("Init timer...");
+
+                if (!isUserAdmin) {
+                }
+              }
+        };
+
         this.props.webSocketFinishVoting.onmessage = (event) => {
                console.log("message on stopping...");
                let jsonObj = JSON.parse(event.data);
@@ -237,15 +271,14 @@ class Timer extends Component {
 
                $(document).ready(function(){
                       $.notify({
-                       	title: 'Voting was finished...',
+                       	title: 'Voting was finished.',
                        	message: 'Board: '+ targetBoardId + ', story: ' + storyId,
-                       	url: window.location.host + window.location.pathname
                       },{
                         element: "body",
-                       	type: "info",
+                       	type: "success",
                        	allow_dismiss: true,
                        	newest_on_top: true,
-                      	offset: 120,
+                      	offset: 90,
                        	placement: {
                     		from: "top",
                            	align: "right"
@@ -260,24 +293,22 @@ class Timer extends Component {
                       isOn: false
                     });
 
-                    MemeUtil.disconnect(this.props.webSocketStartVoting);
-
                     clearInterval(this.state.timer);
                }
                clearInterval(this.timer);
 
-                 alert("Voting was finished: " + message);
                }
         };
 
         let start = (isUserAdmin && this.state.time === 0)
             ? <div onClick={this.startTimer}><StartButton name={"Start voting"}/></div>
             : null;
-        let stop = (isUserAdmin && (this.state.time !=0 && this.state.isOn))
+
+        let stop = (isUserAdmin && (this.state.time !=0 && !this.state.isFinished))
             ? <div onClick={this.stopTimer}><StartButton name={"Finish voting"}/></div>
             : null;
 
-        let vote = (!isUserAdmin && !this.state.isVoted && this.state.time != 0)
+        let vote = (!this.state.isVoted && this.state.time != 0)
             ? <div onClick={this.vote}><StartButton name={"Vote"}/></div>
             : null;
 

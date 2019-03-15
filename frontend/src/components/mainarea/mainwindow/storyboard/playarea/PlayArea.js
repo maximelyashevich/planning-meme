@@ -9,7 +9,7 @@ import Timer from "./Timer";
 
 const StartPlayStyle = {
     width: '100%',
-    height: '7.5em',
+    height: '10.5em',
     backgroundColor: 'transparent',
     boxShadow: 'rgba(1, 1, 1, 0.05) 0px 0px 5px 0px',
     margin: '8px',

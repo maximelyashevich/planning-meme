@@ -3,6 +3,7 @@ package com.epam.meme.websocket.configurator;
 import com.epam.meme.websocket.endpoint.AbstractWebSocketEndPoint;
 import com.epam.meme.websocket.endpoint.FinishVotingEndPoint;
 import com.epam.meme.websocket.endpoint.StartVotingEndpoint;
+import com.epam.meme.websocket.endpoint.VoteEndPoint;
 
 import javax.websocket.server.ServerEndpointConfig;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ public class WebSocketConfigurator extends ServerEndpointConfig.Configurator {
     public WebSocketConfigurator() {
         this.configureMap = new HashMap<>();
         configureMap.put(StartVotingEndpoint.class, new StartVotingEndpoint());
+        configureMap.put(VoteEndPoint.class, new VoteEndPoint());
         configureMap.put(FinishVotingEndPoint.class, new FinishVotingEndPoint());
     }
 

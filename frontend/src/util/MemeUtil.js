@@ -69,6 +69,7 @@ class MemeUtil {
                 );
     }
 
+
     static finishVoting(ws, userId, boardId) {
                 ws.send(JSON.stringify({
                           "userId" : userId,
@@ -77,9 +78,10 @@ class MemeUtil {
                 );
     }
 
-    static sendMessage(ws, userId, boardId, vote) {
-            ws.send(JSON.stringify({
+    static vote(ws, userId, username, boardId, vote) {
+                ws.send(JSON.stringify({
                       "userId" : userId,
+                      "username" : username,
                       "boardId" : boardId,
                       "vote" : vote
                        })

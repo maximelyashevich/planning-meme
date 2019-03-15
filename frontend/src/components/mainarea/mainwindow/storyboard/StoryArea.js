@@ -25,8 +25,8 @@ class StoryArea extends Component {
             isUserAdminOfBoard: undefined,
             boardId: 0,
             pageNumber: 0,
-            pageSize: 5,
-            storyCount: 5,
+            pageSize: 8,
+            storyCount: 8,
             storyIdToDelete: 0,
             storyIdToEdit: 0,
             storyNameToEdit: "",
@@ -214,6 +214,7 @@ class StoryArea extends Component {
                                                     storyName={this.state.storyName}
                                                     boardId={this.state.boardId}
                                                     webSocketStartVoting={this.props.webSocketStartVoting}
+                                                    webSocketVote={this.props.webSocketVote}
                                                     webSocketFinishVoting={this.props.webSocketFinishVoting}
                                                     onReloadPage={this.reloadPage}
                                                     {...props}/>}/>

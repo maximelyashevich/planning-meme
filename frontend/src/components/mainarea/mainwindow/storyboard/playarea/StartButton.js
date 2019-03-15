@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 const ButtonStyle = {
     marginBottom: '0px',
+    marginTop: '0.25em',
     fontSize: '14px',
     fontWeight: 'normal',
     lineHeight: '1.42857',

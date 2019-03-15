@@ -9,7 +9,7 @@ tr td a:hover {
 
 .edit-icon, .delete-icon {
     cursor: pointer;
-    color: #b9bbbe;
+    color: #52535485 !important;
     font-size: 24px;
 }
 
