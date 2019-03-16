@@ -19,12 +19,12 @@ class BoardPagination extends Component {
         }
     }
 
-    initializePagination(){
+    initializePagination() {
         let buttons = [];
-        for (let i = 1; i <= Math.ceil(this.props.boardCount / this.props.pageSize); i++){
+        for (let i = 1; i <= Math.ceil(this.props.boardCount / this.props.pageSize); i++) {
             buttons.push(
                 <li className="page-item">
-                    <a className="page-link" onClick={ this.props.pageNumberHandler }>{i}</a>
+                    <a className="page-link" onClick={this.props.pageNumberHandler}>{i}</a>
                 </li>
             );
         }
@@ -35,7 +35,7 @@ class BoardPagination extends Component {
 
     render() {
         return (
-            <BoardPaginationUl>{ this.state.buttonList }</BoardPaginationUl>
+            <BoardPaginationUl>{this.state.buttonList}</BoardPaginationUl>
         );
     }
 }

@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import './style/style.css';
 import {
-    BoardEditIAttribute, BoardHiddenSpan, BoardTableBindDiv, BoardTableDeleteIcon, BoardTableDeleteSpan
+    BoardEditIAttribute,
+    BoardHiddenSpan,
+    BoardTableBindDiv,
+    BoardTableDeleteIcon,
+    BoardTableDeleteSpan
 } from "./style/BoardAreaStyle";
 import {
     DeleteIAttribute,

@@ -18,7 +18,7 @@ class JoinBoardButton extends Component {
                 console.log(response);
                 this.props.becomeMember();
             })
-            .catch((error) =>{
+            .catch((error) => {
                 console.log(error);
             });
     }
@@ -26,7 +26,7 @@ class JoinBoardButton extends Component {
     render() {
         return (
             <div className="no-left-padding">
-                <a className="btn btn-primary pull-left btn-lg btn-block" onClick={ this.joinBoard }>
+                <a className="btn btn-primary pull-left btn-lg btn-block" onClick={this.joinBoard}>
                     <i className="fa fa-plus"/> Join board
                 </a>
             </div>

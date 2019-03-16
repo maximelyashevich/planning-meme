@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import SignForm, {Button, FormGroup, H2, Input, SignDiv} from "./style/SignInStyle";
 
 class SignUp extends Component {

@@ -8,7 +8,6 @@ import {
 } from "../style/MainWindowStyle";
 import {StoryDeleteTdAttribute, StoryEditIAttribute} from "./style/StoryAreaStyle";
 import MemeUtil from "../../../../util/MemeUtil";
-import $ from "jquery"
 
 class StoryElement extends Component {
 
@@ -41,17 +40,19 @@ class StoryElement extends Component {
 
         return (
             <TableTrClickableTitle isFinished={this.props.finishTime}>
-                <TableNamedTd onClick={ this.goToStory }>{this.props.description}</TableNamedTd>
-                <TableHiddenXs onClick={ this.goToStory }>{String(this.props.startTime).replace('T', ' / ')} </TableHiddenXs>
-                <TableHiddenXs onClick={ this.goToStory }>{String(this.props.finishTime).replace('T', ' / ')}</TableHiddenXs>
-                <TableHiddenXs onClick={ this.goToStory }>stub</TableHiddenXs>
-                <TableHiddenXs onClick={ this.goToStory }>{this.props.estimation}</TableHiddenXs>
-                { this.props.isUserAdminOfBoard === true && <TableEditIcon onClick={(e) => this.editStory(e)}>
+                <TableNamedTd onClick={this.goToStory}>{this.props.description}</TableNamedTd>
+                <TableHiddenXs
+                    onClick={this.goToStory}>{String(this.props.startTime).replace('T', ' / ')} </TableHiddenXs>
+                <TableHiddenXs
+                    onClick={this.goToStory}>{String(this.props.finishTime).replace('T', ' / ')}</TableHiddenXs>
+                <TableHiddenXs onClick={this.goToStory}>stub</TableHiddenXs>
+                <TableHiddenXs onClick={this.goToStory}>{this.props.estimation}</TableHiddenXs>
+                {this.props.isUserAdminOfBoard === true && <TableEditIcon onClick={(e) => this.editStory(e)}>
                     <StoryEditIAttribute/>
-                </TableEditIcon> }
-                { this.props.isUserAdminOfBoard === true && <StoryDeleteTdAttribute onClick={(e) => this.deleteStory(e)}>
+                </TableEditIcon>}
+                {this.props.isUserAdminOfBoard === true && <StoryDeleteTdAttribute onClick={(e) => this.deleteStory(e)}>
                     <DeleteIAttribute/>
-                </StoryDeleteTdAttribute> }
+                </StoryDeleteTdAttribute>}
             </TableTrClickableTitle>
         );
     }

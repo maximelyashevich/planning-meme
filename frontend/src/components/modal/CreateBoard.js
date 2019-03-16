@@ -2,8 +2,17 @@ import React, {Component} from 'react';
 import axios from "axios";
 
 import {
-    Button, CloseButton, ModalBody, ModalContent, ModalDialog, ModalDialogDiv, ModalFooter, ModalHeader, ModalInput,
-    ModalTitle, SmallCloseButton
+    Button,
+    CloseButton,
+    ModalBody,
+    ModalContent,
+    ModalDialog,
+    ModalDialogDiv,
+    ModalFooter,
+    ModalHeader,
+    ModalInput,
+    ModalTitle,
+    SmallCloseButton
 } from "./style/ModalStyle";
 import MemeUtil from "../../util/MemeUtil";
 import {USER_COOKIE_NAME} from "../../util/TextConstant";
@@ -47,8 +56,8 @@ class CreateBoard extends Component {
 
     onKeyPressed = (e) => {
         if (e.key === 'Enter') {
-             this.createBoard();
-             MemeUtil.closeModal("#closeButton");
+            this.createBoard();
+            MemeUtil.closeModal("#closeButton");
         }
         return false;
     };
@@ -83,9 +92,9 @@ class CreateBoard extends Component {
                             <ModalInput id="createBoardInputText"
                                         placeholder="Enter board name"
                                         required="required"
-                                        onChange={ this.onInputChange }
-                                        onKeyPress={ this.onKeyPressed }
-                                        value={ this.state.name } />
+                                        onChange={this.onInputChange}
+                                        onKeyPress={this.onKeyPressed}
+                                        value={this.state.name}/>
                         </ModalBody>
                         <ModalFooter>
                             <Button onClick={this.addValue}>Create</Button>

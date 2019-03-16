@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './style/style.css'
 import {CreateBoardButtonAttribute, CreateButton} from "../style/MainWindowStyle";
 import MemeUtil from "../../../../util/MemeUtil";

@@ -2,8 +2,17 @@ import React, {Component} from 'react';
 import axios from "axios";
 import MemeUtil from "../../util/MemeUtil";
 import {
-    Button, CloseButton, ModalBody, ModalContent, ModalDialog, ModalDialogDiv, ModalFooter, ModalHeader, ModalInput,
-    ModalTitle, SmallCloseButton
+    Button,
+    CloseButton,
+    ModalBody,
+    ModalContent,
+    ModalDialog,
+    ModalDialogDiv,
+    ModalFooter,
+    ModalHeader,
+    ModalInput,
+    ModalTitle,
+    SmallCloseButton
 } from "./style/ModalStyle";
 import $ from 'jquery';
 
@@ -15,7 +24,7 @@ class EditStory extends Component {
     }
 
     editStory() {
-        axios.put('/meme/users/current-user/boards/'+ this.props.boardId
+        axios.put('/meme/users/current-user/boards/' + this.props.boardId
             + '/stories/' + this.props.storyIdToEdit, {
             description: this.state.description
         })
@@ -30,8 +39,8 @@ class EditStory extends Component {
 
     onKeyPressed = (e) => {
         if (e.key === 'Enter') {
-             this.editStory();
-             MemeUtil.closeModal("#closeEditStoryButton");
+            this.editStory();
+            MemeUtil.closeModal("#closeEditStoryButton");
         }
         return false;
     };
@@ -53,7 +62,7 @@ class EditStory extends Component {
                             <ModalInput id="editStoryModalInput"
                                         placeholder={this.props.storyNameToEdit}
                                         onChange={this.onInputChange}
-                                        onKeyPress={ this.onKeyPressed }
+                                        onKeyPress={this.onKeyPressed}
                                         required="required"/>
                         </ModalBody>
                         <ModalFooter>

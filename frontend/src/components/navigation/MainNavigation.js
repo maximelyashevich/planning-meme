@@ -4,8 +4,10 @@ import {
     DropdownMenu,
     DropdownToggle,
     MainNavigationBarCollapse,
-    MainNavigationUl, NavigationUl,
-    SignOutButton, UserPlace
+    MainNavigationUl,
+    NavigationUl,
+    SignOutButton,
+    UserPlace
 } from "./style/NavigationStyle";
 import MemeUtil from "../../util/MemeUtil";
 import {USER_COOKIE_NAME} from "../../util/TextConstant";
@@ -18,26 +20,26 @@ class MainNavigation extends React.Component {
     }
 
     handleSignOut = () => {
-         MemeUtil.deleteCookieByName(USER_COOKIE_NAME);
+        MemeUtil.deleteCookieByName(USER_COOKIE_NAME);
 
-         window.localStorage.removeItem("isLoggedIn");
-         if(this.props.webSocketStartVoting != null){
+        window.localStorage.removeItem("isLoggedIn");
+        if (this.props.webSocketStartVoting != null) {
             MemeUtil.disconnect(this.props.webSocketStartVoting);
-         }
+        }
 
-         if(this.props.webSocketVote != null){
+        if (this.props.webSocketVote != null) {
             MemeUtil.disconnect(this.props.webSocketVote);
-         }
+        }
 
-         if(this.props.webSocketFinishVoting != null){
+        if (this.props.webSocketFinishVoting != null) {
             MemeUtil.disconnect(this.props.webSocketFinishVoting);
-         }
+        }
     };
 
     componentDidMount() {
-        try{
+        try {
             this.setState({username: JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).username});
-        }catch(err){
+        } catch (err) {
             MemeUtil.deleteCookieByName(USER_COOKIE_NAME);
             window.localStorage.removeItem("isLoggedIn");
             window.location.reload();

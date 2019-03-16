@@ -12,7 +12,7 @@ class MainArea extends Component {
             <div className="container">
                 <div className="starter-template">
                     <div className="login-form">
-                         <SignIn {...this.props}/>
+                        <SignIn {...this.props}/>
                     </div>
                 </div>
             </div>

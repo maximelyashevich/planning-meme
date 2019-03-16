@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PlayArea from "./playarea/PlayArea";
-import { AreaTitle, Divider } from "../style/MainWindowStyle";
+import {AreaTitle, Divider} from "../style/MainWindowStyle";
 import axios from "axios";
 import MemeUtil from "../../../../util/MemeUtil";
 import {BOARD_URL_REGEX} from "../../../../util/TextConstant";

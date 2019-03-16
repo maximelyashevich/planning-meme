@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
 import axios from "axios";
 import {
-    Button, CloseButton, divStyle, ModalBody, ModalContent,
-    ModalDialog, ModalDialogDiv, ModalFooter, ModalHeader
+    Button,
+    CloseButton,
+    divStyle,
+    ModalBody,
+    ModalContent,
+    ModalDialog,
+    ModalDialogDiv,
+    ModalFooter,
+    ModalHeader
 } from "./style/ModalStyle";
 
 class ConfirmDelete extends Component {

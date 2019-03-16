@@ -3,52 +3,55 @@ body {
     background-color: #edf2f7d1 !important;
     text-align: center;
     font-weight: 400;
-    font-family: "Open Sans",sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 
 a, img {
     cursor: pointer;
 }
 
-h3{
+h3 {
     font-weight: 400;
     font-size: 14px;
-    font-family: Open Sans,sans-serif;
+    font-family: Open Sans, sans-serif;
 }
-.create-story{
+
+.create-story {
     cursor: pointer;
 }
 
-.create-story:hover{
+.create-story:hover {
     background: #adb5b52e;
     cursor: pointer;
 }
-img:hover{
+
+img:hover {
     -moz-box-shadow: 0 0 10px #b1b1b1;
     box-shadow: 0 0 10px #b1b1b1;
 }
 
-.filterImg{
+.filterImg {
     filter: hue-rotate(-55deg);
 }
+
 .starter-template {
     padding: 2% 15px;
     text-align: center;
 }
 
-.table>thead>tr>th {
+.table > thead > tr > th {
     vertical-align: bottom;
     border-bottom: 2px solid #ddd;
 }
 
-.navbar .nav.navbar-nav>li>.btn {
+.navbar .nav.navbar-nav > li > .btn {
     padding: 10px 22px;
     margin-right: 18px;
     background-color: transparent;
     border: none;
 }
 
-.navbar .nav.navbar-nav>li>.btn.btn-one {
+.navbar .nav.navbar-nav > li > .btn.btn-one {
     background-color: transparent;
     border: 1px solid #4b9ae8;
     color: #4b9ae8;
@@ -87,76 +90,93 @@ li.dropdown:hover > .dropdown-menu {
 }
 
 .name span {
-    font-family: "Open Sans",sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-weight: 400;
     letter-spacing: -.2px;
     color: #131b23;
     border-bottom: none;
 }
 
-.spinner{
-    width:20px;
-    height:20px;
-    margin:6px auto;
-    position:relative;
+.spinner {
+    width: 20px;
+    height: 20px;
+    margin: 6px auto;
+    position: relative;
     -webkit-animation: rotateit 1.3s linear infinite;
     animation: rotateit 1.3s linear infinite;
 }
+
 @-webkit-keyframes rotateit {
-    from { -webkit-transform: rotate(360deg); }
-    to { -webkit-transform: rotate(0deg); }
-}
-@keyframes rotateit {
-    from { transform: rotate(360deg); }
-    to { transform: rotate(0deg); }
+    from {
+        -webkit-transform: rotate(360deg);
+    }
+    to {
+        -webkit-transform: rotate(0deg);
+    }
 }
 
-.spinner.circles div{
+@keyframes rotateit {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+.spinner.circles div {
     width: 4px;
     height: 4px;
-    border-radius:50%;
+    border-radius: 50%;
     background: black;
     position: absolute;
     top: 7px;
     left: 9px;
 }
 
-.spinner.circles div:nth-child(1){
+.spinner.circles div:nth-child(1) {
     -webkit-transform: rotate(0deg) translate(0, -7px) scale(1.4);
     transform: rotate(0deg) translate(0, -7px) scale(1.4);
 }
-.spinner.circles div:nth-child(2){
+
+.spinner.circles div:nth-child(2) {
     -webkit-transform: rotate(45deg) translate(0, -7px) scale(1.2);
     transform: rotate(45deg) translate(0, -7px) scale(1.2);
-    opacity:0.7;
+    opacity: 0.7;
 }
-.spinner.circles div:nth-child(3){
+
+.spinner.circles div:nth-child(3) {
     -webkit-transform: rotate(90deg) translate(0, -7px) scale(1.1);
     transform: rotate(90deg) translate(0, -7px) scale(1.1);
-    opacity:0.6;
+    opacity: 0.6;
 }
-.spinner.circles div:nth-child(4){
+
+.spinner.circles div:nth-child(4) {
     -webkit-transform: rotate(135deg) translate(0, -7px) scale(0.9);
     transform: rotate(135deg) translate(0, -7px) scale(0.9);
-    opacity:0.5;
+    opacity: 0.5;
 }
-.spinner.circles div:nth-child(5){
+
+.spinner.circles div:nth-child(5) {
     -webkit-transform: rotate(180deg) translate(0, -7px) scale(0.7);
     transform: rotate(180deg) translate(0, -7px) scale(0.7);
-    opacity:0.4;
+    opacity: 0.4;
 }
-.spinner.circles div:nth-child(6){
+
+.spinner.circles div:nth-child(6) {
     -webkit-transform: rotate(225deg) translate(0, -7px) scale(0.5);
     transform: rotate(225deg) translate(0, -7px) scale(0.5);
-    opacity:0.3;
+    opacity: 0.3;
 }
-.spinner.circles div:nth-child(7){
+
+.spinner.circles div:nth-child(7) {
     -webkit-transform: rotate(270deg) translate(0, -7px) scale(0.3);
     transform: rotate(270deg) translate(0, -7px) scale(0.3);
-    opacity:0.2;
+    opacity: 0.2;
 }
-.spinner.circles div:nth-child(8){
+
+.spinner.circles div:nth-child(8) {
     -webkit-transform: rotate(315deg) translate(0, -7px) scale(0.1);
     transform: rotate(315deg) translate(0, -7px) scale(0.1);
-    opacity:0.1;
+    opacity: 0.1;
 }

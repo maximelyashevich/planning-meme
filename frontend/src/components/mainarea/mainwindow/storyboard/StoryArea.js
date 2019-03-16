@@ -48,7 +48,7 @@ class StoryArea extends Component {
 
     componentDidMount() {
         let boardId = MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href);
-        this.setState(()=>({
+        this.setState(() => ({
             boardId: boardId
         }));
         this.checkUserAdmin(boardId);
@@ -80,7 +80,7 @@ class StoryArea extends Component {
 
     changeStoryNameToEditStateChange = (e) => {
         this.setState(() => ({
-           storyNameToEdit: e
+            storyNameToEdit: e
         }));
     };
 
@@ -114,11 +114,11 @@ class StoryArea extends Component {
                             startTime={story.startTime}
                             finishTime={story.finishTime}
                             estimation={story.estimation}
-                            onChangeStoryIdToDelete = {this.changeStoryIdToDeleteStateChange}
-                            onChangeStoryIdToEdit = {this.changeStoryIdToEditStateChange}
-                            onChangeStoryNameToEdit = {this.changeStoryNameToEditStateChange}
-                            checkUserAdmin = {this.checkUserAdmin}
-                            isUserAdminOfBoard = { this.state.isUserAdminOfBoard }
+                            onChangeStoryIdToDelete={this.changeStoryIdToDeleteStateChange}
+                            onChangeStoryIdToEdit={this.changeStoryIdToEditStateChange}
+                            onChangeStoryNameToEdit={this.changeStoryNameToEditStateChange}
+                            checkUserAdmin={this.checkUserAdmin}
+                            isUserAdminOfBoard={this.state.isUserAdminOfBoard}
                             {...this.props} />);
                     this.loadElements(storyElements);
                 })
@@ -133,11 +133,11 @@ class StoryArea extends Component {
     }
 
     onInputPageNumberChange(e) {
-            let newPageNumber = Number(e.target.text) - 1;
-            this.setState({
-                pageNumber: newPageNumber
-            });
-            this.loadStories(newPageNumber, this.state.boardId);
+        let newPageNumber = Number(e.target.text) - 1;
+        this.setState({
+            pageNumber: newPageNumber
+        });
+        this.loadStories(newPageNumber, this.state.boardId);
     }
 
     loadBoardName(boardId) {
@@ -176,7 +176,7 @@ class StoryArea extends Component {
             .catch((error) => {
                 console.log(error.response.data);
             });
-       }
+    }
 
     becomeMember() {
         this.setState({
@@ -204,7 +204,7 @@ class StoryArea extends Component {
                         Board: {this.state.boardName}
                     </AreaTitle>
                     <Divider/>
-                    { this.state.isUserAdminOfBoard && <CreateStoryButton/> }
+                    {this.state.isUserAdminOfBoard && <CreateStoryButton/>}
                     {!this.state.isUserMemberOfBoard && <JoinBoardButton becomeMember={this.becomeMember}/>}
                     <AreaRow>
                         <Route path={`${this.props.match.url}/:storyId`}
@@ -219,7 +219,7 @@ class StoryArea extends Component {
                                                     onReloadPage={this.reloadPage}
                                                     {...props}/>}/>
                         <div>
-                            <CreateStory onAdd={ this.reloadPage } {...this.props}/>
+                            <CreateStory onAdd={this.reloadPage} {...this.props}/>
                             <StoryTable storyList={this.state.stories}
                                         onStoriesLoad={this.loadElements}
                                         specifyStoryName={this.specifyStoryName}
@@ -228,7 +228,7 @@ class StoryArea extends Component {
                                         storyCount={this.state.storyCount}
                                         {...this.props}/>
                         </div>
-                         <EditStory storyIdToEdit={this.state.storyIdToEdit}
+                        <EditStory storyIdToEdit={this.state.storyIdToEdit}
                                    storyNameToEdit={this.state.storyNameToEdit}
                                    boardId={this.state.boardId}
                                    onReloadPage={this.reloadPage}/>

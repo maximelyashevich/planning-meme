@@ -6,7 +6,6 @@ import {BOARD_URL_REGEX} from "../../../../../util/TextConstant";
 import $ from 'jquery';
 
 
-
 const styleUserList = {
     marginTop: '50px',
     paddingBottom: '20px',
@@ -34,8 +33,8 @@ class MemberList extends Component {
         this.getBoardAdminId();
     }
 
-    getBoardAdminId(){
-        axios.get("/meme/users/current-user/boards/"+ MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href))
+    getBoardAdminId() {
+        axios.get("/meme/users/current-user/boards/" + MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href))
             .then((response) => {
                 this.setState({
                     boardAdminId: response.data.admin.id
@@ -57,7 +56,7 @@ class MemberList extends Component {
                                        id={item.id}
                                        name={item.username}
                                        isAdmin={(this.state.boardAdminId == item.id) ? true : false}
-                                       />
+                        />
                     )
                 })
             })

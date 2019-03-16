@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 const divStyle = {
-    background:'#545454',
-    color:'darkgray',
-    padding:'1% 0 0 0'
+    background: '#545454',
+    color: 'darkgray',
+    padding: '1% 0 0 0'
 };
 
 const FooterDiv = styled.div.attrs({

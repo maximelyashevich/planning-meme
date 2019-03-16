@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import MemeUtil from "../../../util/MemeUtil";
 import SignForm, {Button, H2, Input, SignDiv} from "./style/SignInStyle";
 
 class SignIn extends Component {
@@ -39,7 +38,7 @@ class SignIn extends Component {
             <SignDiv>
                 <form style={SignForm} onSubmit={this.addUser}>
                     <H2>Let's start!</H2>
-                    <Input required="required"  placeholder="Enter your name" onChange={this.onInputChange}/>
+                    <Input required="required" placeholder="Enter your name" onChange={this.onInputChange}/>
                     <Button>Enter</Button>
                 </form>
             </SignDiv>

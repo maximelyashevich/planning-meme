@@ -23,9 +23,9 @@ class StoryTable extends Component {
                     {this.props.storyList}
                     </tbody>
                 </Table>
-                 <StoryPagination pageSize={ this.props.pageSize }
-                                                 storyCount={ this.props.storyCount }
-                                                 pageNumberHandler={ this.props.onInputPageNumberChange } />
+                <StoryPagination pageSize={this.props.pageSize}
+                                 storyCount={this.props.storyCount}
+                                 pageNumberHandler={this.props.onInputPageNumberChange}/>
             </TableRow>
         );
     }

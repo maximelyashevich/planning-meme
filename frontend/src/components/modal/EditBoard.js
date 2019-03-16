@@ -2,8 +2,17 @@ import React, {Component} from 'react';
 import axios from "axios";
 import MemeUtil from "../../util/MemeUtil";
 import {
-    Button, CloseButton, ModalBody, ModalContent, ModalDialog, ModalDialogDiv, ModalFooter, ModalHeader, ModalInput,
-    ModalTitle, SmallCloseButton
+    Button,
+    CloseButton,
+    ModalBody,
+    ModalContent,
+    ModalDialog,
+    ModalDialogDiv,
+    ModalFooter,
+    ModalHeader,
+    ModalInput,
+    ModalTitle,
+    SmallCloseButton
 } from "./style/ModalStyle";
 import $ from 'jquery';
 
@@ -15,23 +24,23 @@ class EditBoard extends Component {
         this.state = {name: this.props.boardNameToEdit};
     }
 
-    editBoard(){
-            axios.put('/meme/users/current-user/boards/' + this.props.boardIdToEdit, {
-                name: this.state.name
+    editBoard() {
+        axios.put('/meme/users/current-user/boards/' + this.props.boardIdToEdit, {
+            name: this.state.name
+        })
+            .then(() => {
+                this.props.onReloadPage();
+                $("#editBoardModalInput").val("");
             })
-                .then(() => {
-                    this.props.onReloadPage();
-                    $("#editBoardModalInput").val("");
-                })
-                .catch((error) => {
-                    console.log(error.data);
-                });
+            .catch((error) => {
+                console.log(error.data);
+            });
     }
 
     onKeyPressed = (e) => {
         if (e.key === 'Enter') {
-             this.editBoard();
-             MemeUtil.closeModal("#closeEditBoardButton");
+            this.editBoard();
+            MemeUtil.closeModal("#closeEditBoardButton");
         }
         return false;
     };
@@ -53,7 +62,7 @@ class EditBoard extends Component {
                             <ModalInput id="editBoardModalInput"
                                         placeholder={this.props.boardNameToEdit}
                                         onChange={this.onInputChange}
-                                        onKeyPress={ this.onKeyPressed }
+                                        onKeyPress={this.onKeyPressed}
                                         required="required"/>
                         </ModalBody>
                         <ModalFooter>

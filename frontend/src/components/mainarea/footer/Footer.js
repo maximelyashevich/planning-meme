@@ -7,7 +7,9 @@ class Footer extends Component {
             <FooterDiv>
                 <FooterInner>
                     <FooterContainer>
-                        <FooterText><small>Planning Meme &copy; 2018</small></FooterText>
+                        <FooterText>
+                            <small>Planning Meme &copy; 2018</small>
+                        </FooterText>
                     </FooterContainer>
                 </FooterInner>
             </FooterDiv>

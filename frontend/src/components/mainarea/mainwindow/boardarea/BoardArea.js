@@ -125,7 +125,7 @@ class BoardArea extends Component {
                         <EditBoard boardIdToEdit={this.state.boardIdToEdit}
                                    boardNameToEdit={this.state.boardNameToEdit}
                                    onReloadPage={this.reloadPage}/>
-                        <CreateBoard onAdd={ this.reloadPage }/>
+                        <CreateBoard onAdd={this.reloadPage}/>
                         <ConfirmDelete boardIdToDelete={this.state.boardIdToDelete}
                                        onReloadPage={this.reloadPage}/>
                     </BoardAreaColumns>

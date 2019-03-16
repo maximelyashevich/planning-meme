@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {
-    CardBlock, CardImg
-} from "../style/VotingAreaStyle";
+import {CardBlock, CardImg} from "../style/VotingAreaStyle";
 
 class Card extends Component {
 
@@ -23,7 +21,8 @@ class Card extends Component {
     render() {
         return (
             <CardBlock>
-                <CardImg id={this.props.id} src={this.props.source} onClick={this.changeActiveState} alt={this.props.desc} draggable="false"/>
+                <CardImg id={this.props.id} src={this.props.source} onClick={this.changeActiveState}
+                         alt={this.props.desc} draggable="false"/>
             </CardBlock>
         );
     }

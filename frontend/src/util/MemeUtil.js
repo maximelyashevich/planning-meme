@@ -32,18 +32,18 @@ class MemeUtil {
             .replace(/\b(\d)\b/g, "0$1")
     }
 
-    static findIdByUrl(regex, currentUrl){
+    static findIdByUrl(regex, currentUrl) {
         let resultGroupMatch = regex.exec(currentUrl)[1];
         regex.lastIndex = 0;
         return resultGroupMatch;
     }
 
-    static focusBoardNameInput(selector){
-            $(selector).focus();
+    static focusBoardNameInput(selector) {
+        $(selector).focus();
     }
 
-    static closeModal(id){
-            $(id).click();
+    static closeModal(id) {
+        $(id).click();
     }
 
     static disconnect(memeClient) {
@@ -62,30 +62,30 @@ class MemeUtil {
     }
 
     static startVoting(ws, userId, boardId) {
-                ws.send(JSON.stringify({
-                          "userId" : userId,
-                          "boardId" : boardId
-                           })
-                );
+        ws.send(JSON.stringify({
+                "userId": userId,
+                "boardId": boardId
+            })
+        );
     }
 
 
     static finishVoting(ws, userId, boardId) {
-                ws.send(JSON.stringify({
-                          "userId" : userId,
-                          "boardId" : boardId
-                           })
-                );
+        ws.send(JSON.stringify({
+                "userId": userId,
+                "boardId": boardId
+            })
+        );
     }
 
     static vote(ws, userId, username, boardId, vote) {
-                ws.send(JSON.stringify({
-                      "userId" : userId,
-                      "username" : username,
-                      "boardId" : boardId,
-                      "vote" : vote
-                       })
-            );
+        ws.send(JSON.stringify({
+                "userId": userId,
+                "username": username,
+                "boardId": boardId,
+                "vote": vote
+            })
+        );
     }
 }
 

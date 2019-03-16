@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import StartButton from "./StartButton";
 import MemeUtil from "../../../../../util/MemeUtil";
-import {BOARD_URL_REGEX} from "../../../../../util/TextConstant";
-import {USER_COOKIE_NAME} from "../../../../../util/TextConstant";
+import {BOARD_URL_REGEX, USER_COOKIE_NAME} from "../../../../../util/TextConstant";
 import axios from "axios";
 import $ from 'jquery';
 import 'bootstrap-notify';
-
 
 class Timer extends Component {
     constructor(props) {
@@ -33,16 +31,9 @@ class Timer extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        //window.clearInterval(this.timer);
-        if (this.props.location != prevProps.location) {
+        if (this.props.location !== prevProps.location) {
             console.log("component did update");
             this.loadStory();
-        } else {
-//            if (this.state.start != 0 && this.timer == undefined) {
-//                this.timer = setInterval(() => this.setState({
-//                    time: Date.now() - this.state.start
-//                }), 1000);
-//            }
         }
     }
 
@@ -59,7 +50,7 @@ class Timer extends Component {
             + "/stories/"
             + this.props.match.params.storyId)
             .then(response => {
-                console.log("->"+response.data.finishTime);
+                console.log("->" + response.data.finishTime);
                 let finishTime = response.data.finishTime;
                 if (!finishTime && response.data.startTime) {
                     this.setState({
@@ -81,44 +72,45 @@ class Timer extends Component {
             .catch(error => {
                 console.log(error.response.data);
             });
-    }
+    };
 
     startTimer = () => {
         let boardId = MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href);
-        let updStory = { setStartTime: true };
+        let updStory = {setStartTime: true};
         axios.put("/meme/users/current-user/boards/"
             + boardId
             + "/stories/"
             + this.props.match.params.storyId, updStory)
             .then(res => {
-                 this.setState({
+                this.setState({
                     isOn: true,
                     start: Date.now()
-                 });
+                });
 
-                 this.timer = setInterval(() => this.setState({
+                this.timer = setInterval(() => this.setState({
                     time: Date.now() - this.state.start
-                 }), 1000);
+                }), 1000);
 
-                 let userId = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).id;
-                 let vote = -1;
-                 MemeUtil.startVoting(this.props.webSocketStartVoting, userId, boardId);
+                let userId = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).id;
+                let vote = -1;
+                MemeUtil.startVoting(this.props.webSocketStartVoting, userId, boardId);
             })
             .catch(err => {
                 console.log(err.response.data);
             });
-    }
+    };
 
 
     vote() {
-        let voteValue = $('.filterImg').attr('alt');
+        let filterImg = '.filterImg';
+        let voteValue = $(filterImg).attr('alt');
         let userId = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).id;
 
         this.setState({
-               result: voteValue,
-               chosenCardId: $('.filterImg').attr('id'),
-               isVoted: true,
-               isOn: false
+            result: voteValue,
+            chosenCardId: $(filterImg).attr('id'),
+            isVoted: true,
+            isOn: false
         });
 
         let boardId = MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href);
@@ -139,40 +131,40 @@ class Timer extends Component {
             })
             .catch(err => {
                 console.log(err.response.data);
-        });
+            });
     }
 
-    stopTimer = ()=>{
-         this.setState({
-             isOn: false,
-             isFinished: true
-         });
+    stopTimer = () => {
+        this.setState({
+            isOn: false,
+            isFinished: true
+        });
 
-         let boardId = MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href);
+        let boardId = MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href);
 
-         let userId = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).id;
+        let userId = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).id;
 
-         let vote = this.state.result;
-         let updStory = {
-             setFinishTime: true
-         };
+        let vote = this.state.result;
+        let updStory = {
+            setFinishTime: true
+        };
 
-         axios.put("/meme/users/current-user/boards/"
+        axios.put("/meme/users/current-user/boards/"
             + boardId
             + "/stories/"
             + this.props.match.params.storyId, updStory)
-         .then(res => {
-              console.log(res.data);
-              let boardId = MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href);
-              let userId = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).id;
+            .then(res => {
+                console.log(res.data);
+                let boardId = MemeUtil.findIdByUrl(BOARD_URL_REGEX, window.location.href);
+                let userId = JSON.parse(MemeUtil.identifyCookieByName(USER_COOKIE_NAME)).id;
 
-              MemeUtil.finishVoting(this.props.webSocketFinishVoting, userId, boardId);
-         })
-         .catch(err => {
-              console.log(err.response.data);
-         });
+                MemeUtil.finishVoting(this.props.webSocketFinishVoting, userId, boardId);
+            })
+            .catch(err => {
+                console.log(err.response.data);
+            });
 
-    }
+    };
 
     changeImg(id) {
         $('#' + id).attr('src', 'resources/images/34.png');
@@ -197,131 +189,134 @@ class Timer extends Component {
             let targetBoardId = jsonObj.boardId;
             let message = jsonObj.userId + "-> " + targetBoardId;
 
-            $(document).ready(function(){
-                 $.notify({
-                   	title: 'Voting is starting.',
-                   	message: 'Board: '+ targetBoardId + ', story: ' + storyId,
-                 },{
+            $(document).ready(function () {
+                $.notify({
+                    title: 'Voting is starting.',
+                    message: 'Board: ' + targetBoardId + ', story: ' + storyId,
+                }, {
                     element: "body",
-                   	type: "info",
-                   	allow_dismiss: true,
-                   	newest_on_top: true,
-                   	offset: 90,
-                   	placement: {
-                   		from: "top",
-                    	align: "right"
+                    type: "info",
+                    allow_dismiss: true,
+                    newest_on_top: true,
+                    offset: 90,
+                    placement: {
+                        from: "top",
+                        align: "right"
                     }
-                 });
+                });
             });
 
-            if (isUserMemberOfBoard && targetBoardId == boardId) {
+            //todo: check equals
+            if (isUserMemberOfBoard && targetBoardId === boardId) {
 
                 console.log("Init timer...");
 
                 if (!isUserAdmin) {
 
-                  this.setState({
-                     isOn: true,
-                     start: Date.now(),
-                     timer: setInterval(() => this.setState({
-                                time: Date.now() - this.state.start
-                            }), 1000)
-                  });
-               }
+                    this.setState({
+                        isOn: true,
+                        start: Date.now(),
+                        timer: setInterval(() => this.setState({
+                            time: Date.now() - this.state.start
+                        }), 1000)
+                    });
+                }
             }
         };
 
         this.props.webSocketVote.onmessage = (event) => {
 
-             let jsonObj = JSON.parse(event.data);
-             let targetBoardId = jsonObj.boardId;
-             let message = jsonObj.userId + "-> " + targetBoardId;
+            let jsonObj = JSON.parse(event.data);
+            let targetBoardId = jsonObj.boardId;
+            let message = jsonObj.userId + "-> " + targetBoardId;
 
-             if (isUserMemberOfBoard && targetBoardId == boardId) {
+            //todo: check equals
+            if (isUserMemberOfBoard && targetBoardId === boardId) {
 
-              $(document).ready(function(){
-                       $.notify({
-                          title: 'Successful voting.',
-                          message: jsonObj.username + ' has just voted.',
-                       },{
-                       element: "body",
-                       type: "info",
-                       allow_dismiss: true,
-                       newest_on_top: true,
-                       offset: 90,
-                       placement: {
-                          from: "top",
-                          align: "right"
-                       }
-                     });
+                $(document).ready(function () {
+                    $.notify({
+                        title: 'Successful voting.',
+                        message: jsonObj.username + ' has just voted.',
+                    }, {
+                        element: "body",
+                        type: "info",
+                        allow_dismiss: true,
+                        newest_on_top: true,
+                        offset: 90,
+                        placement: {
+                            from: "top",
+                            align: "right"
+                        }
+                    });
                 });
 
                 console.log("Init timer...");
 
                 if (!isUserAdmin) {
                 }
-              }
+            }
         };
 
         this.props.webSocketFinishVoting.onmessage = (event) => {
-               console.log("message on stopping...");
-               let jsonObj = JSON.parse(event.data);
-               let targetBoardId = jsonObj.boardId;
-               let message = jsonObj.userId + "-> " + targetBoardId;
+            console.log("message on stopping...");
+            let jsonObj = JSON.parse(event.data);
+            let targetBoardId = jsonObj.boardId;
+            let message = jsonObj.userId + "-> " + targetBoardId;
 
-               $(document).ready(function(){
-                      $.notify({
-                       	title: 'Voting was finished.',
-                       	message: 'Board: '+ targetBoardId + ', story: ' + storyId,
-                      },{
-                        element: "body",
-                       	type: "success",
-                       	allow_dismiss: true,
-                       	newest_on_top: true,
-                      	offset: 90,
-                       	placement: {
-                    		from: "top",
-                           	align: "right"
-                      }
-                  });
-               });
+            $(document).ready(function () {
+                $.notify({
+                    title: 'Voting was finished.',
+                    message: 'Board: ' + targetBoardId + ', story: ' + storyId,
+                }, {
+                    element: "body",
+                    type: "success",
+                    allow_dismiss: true,
+                    newest_on_top: true,
+                    offset: 90,
+                    placement: {
+                        from: "top",
+                        align: "right"
+                    }
+                });
+            });
 
-               if (isUserMemberOfBoard && targetBoardId == boardId) {
+            //todo: check equals
+            if (isUserMemberOfBoard && targetBoardId === boardId) {
 
-               if (!isUserAdmin) {
+                if (!isUserAdmin) {
                     this.setState({
-                      isOn: false
+                        isOn: false
                     });
 
                     clearInterval(this.state.timer);
-               }
-               clearInterval(this.timer);
+                }
+                clearInterval(this.timer);
 
-               }
+            }
         };
 
         let start = (isUserAdmin && this.state.time === 0)
             ? <div onClick={this.startTimer}><StartButton name={"Start voting"}/></div>
             : null;
 
-        let stop = (isUserAdmin && (this.state.time !=0 && !this.state.isFinished))
+        let stop = (isUserAdmin && (this.state.time !== 0 && !this.state.isFinished))
             ? <div onClick={this.stopTimer}><StartButton name={"Finish voting"}/></div>
             : null;
 
-        let vote = (!this.state.isVoted && this.state.time != 0)
+        let vote = (!this.state.isVoted && this.state.time !== 0)
             ? <div onClick={this.vote}><StartButton name={"Vote"}/></div>
             : null;
 
         let result = null;
 
-        if (!this.state.isOn && this.state.start > 0 && this.state.chosenCardId!==0){
+        if (!this.state.isOn && this.state.start > 0 && this.state.chosenCardId !== 0) {
             this.changeImg(this.state.chosenCardId);
             result = <div><i>Your vote: </i><b>{this.state.result}</b></div>
         }
 
         let time = this.state.finishTime
-                        ? 'Voting has already been held.'
-                        : 'Time: ' + MemeUtil.formatTime(this.state.time/1000);
+            ? 'Voting has already been held.'
+            : 'Time: ' + MemeUtil.formatTime(this.state.time / 1000);
 
         return (
             <div>

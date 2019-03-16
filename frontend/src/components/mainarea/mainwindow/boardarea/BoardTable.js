@@ -19,12 +19,12 @@ class BoardTable extends Component {
                     </tr>
                     </thead>
                     <tbody className="text-left">
-                    { this.props.boardList }
+                    {this.props.boardList}
                     </tbody>
                 </Table>
-                <BoardPagination pageSize={ this.props.pageSize }
-                                 boardCount={ this.props.boardCount }
-                                 pageNumberHandler={ this.props.onInputPageNumberChange } />
+                <BoardPagination pageSize={this.props.pageSize}
+                                 boardCount={this.props.boardCount}
+                                 pageNumberHandler={this.props.onInputPageNumberChange}/>
             </TableRow>
         );
     }

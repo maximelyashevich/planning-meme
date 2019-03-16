@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './style/style.css'
-import {CreateStoryButtonAttribute, CreateButton} from "../style/MainWindowStyle";
+import {CreateButton, CreateStoryButtonAttribute} from "../style/MainWindowStyle";
 import MemeUtil from "../../../../util/MemeUtil";
-import $ from "jquery"
 
 class CreateStoryButton extends Component {
     render() {

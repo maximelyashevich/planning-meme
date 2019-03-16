@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import NavigationBar from "./components/navigation/NavigationBar";
 import MainArea from "./components/mainarea/MainArea";
 import MemeUtil from "./util/MemeUtil";
-import {MEME_START_ENDPOINT, MEME_VOTE_ENDPOINT, MEME_FINISH_ENDPOINT} from "./util/TextConstant";
+import {MEME_FINISH_ENDPOINT, MEME_START_ENDPOINT, MEME_VOTE_ENDPOINT} from "./util/TextConstant";
 import Footer from "./components/mainarea/footer/Footer";
-import { Route, Redirect, Switch } from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import BoardArea from "./components/mainarea/mainwindow/boardarea/BoardArea";
 import StoryArea from "./components/mainarea/mainwindow/storyboard/StoryArea";
 
@@ -14,7 +14,7 @@ class Home extends React.Component {
         super(props);
     }
 
-    render () {
+    render() {
         return (
             <div>
                 <NavigationBar {...this.props} />
@@ -47,23 +47,23 @@ class App extends Component {
 
     initializeWebSocketConnection(endpoint, memeClient) {
         if (this.state.isLoggedIn) {
-             if (memeClient!=null){
+            if (memeClient != null) {
                 MemeUtil.disconnect(memeClient);
-             }
+            }
 
-             let webSocketValue = MemeUtil.initializeWebSocket(endpoint);
+            let webSocketValue = MemeUtil.initializeWebSocket(endpoint);
 
-             if (endpoint === MEME_START_ENDPOINT) {
-                 this.state.webSocketStartVoting = webSocketValue;
-             }
+            if (endpoint === MEME_START_ENDPOINT) {
+                this.state.webSocketStartVoting = webSocketValue;
+            }
 
-             if (endpoint === MEME_VOTE_ENDPOINT) {
-                 this.state.webSocketVote = webSocketValue;
-             }
+            if (endpoint === MEME_VOTE_ENDPOINT) {
+                this.state.webSocketVote = webSocketValue;
+            }
 
-             if (endpoint === MEME_FINISH_ENDPOINT) {
-                 this.state.webSocketFinishVoting = webSocketValue;
-             }
+            if (endpoint === MEME_FINISH_ENDPOINT) {
+                this.state.webSocketFinishVoting = webSocketValue;
+            }
         }
     }
 
@@ -83,40 +83,40 @@ class App extends Component {
         return (
             <div>
                 <Route path="/"
-                       render={(props) => <Home onAuthStateChange={ this.handleAuthStatusChange }
-                                                isLoggedIn={ this.state.isLoggedIn }
-                                                webSocketStartVoting = {this.state.webSocketStartVoting}
-                                                webSocketVote = {this.state.webSocketVote}
-                                                webSocketFinishVoting = {this.state.webSocketFinishVoting}
-                                                { ...props } /> } />
+                       render={(props) => <Home onAuthStateChange={this.handleAuthStatusChange}
+                                                isLoggedIn={this.state.isLoggedIn}
+                                                webSocketStartVoting={this.state.webSocketStartVoting}
+                                                webSocketVote={this.state.webSocketVote}
+                                                webSocketFinishVoting={this.state.webSocketFinishVoting}
+                                                {...props} />}/>
                 {
 
-                this.state.isLoggedIn ?
-                    <Switch>
-                        <Route exact={true} path="/boards"
-                               render={(props) =>
-                                        <BoardArea webSocketStartVoting = {this.state.webSocketStartVoting}
-                                        webSocketVote = {this.state.webSocketVote}
-                                        webSocketFinishVoting = {this.state.webSocketFinishVoting}
-                                        { ...props } /> }/>
-                        <Route path="/boards/:boardId/stories"
-                               render={(props) =>
-                                        <StoryArea webSocketStartVoting = {this.state.webSocketStartVoting}
-                                        webSocketVote = {this.state.webSocketVote}
-                                        webSocketFinishVoting = {this.state.webSocketFinishVoting}
-                                        {...props}/>} />
-                        <Redirect to="/boards" />
-                    </Switch>
-                    :
-                    <Switch>
-                        <Route exact={true} path="/sign-in"
-                               render={(props) => <MainArea onAuthStateChange={ this.handleAuthStatusChange }
-                                                            webSocketStartVoting = {this.state.webSocketStartVoting}
-                                                            webSocketVote = {this.state.webSocketVote}
-                                                            webSocketFinishVoting = {this.state.webSocketFinishVoting}
-                                                            isLoggedIn={ this.state.isLoggedIn } { ...props } /> } />
-                        <Redirect from="/" to="/sign-in" />
-                    </Switch>
+                    this.state.isLoggedIn ?
+                        <Switch>
+                            <Route exact={true} path="/boards"
+                                   render={(props) =>
+                                       <BoardArea webSocketStartVoting={this.state.webSocketStartVoting}
+                                                  webSocketVote={this.state.webSocketVote}
+                                                  webSocketFinishVoting={this.state.webSocketFinishVoting}
+                                                  {...props} />}/>
+                            <Route path="/boards/:boardId/stories"
+                                   render={(props) =>
+                                       <StoryArea webSocketStartVoting={this.state.webSocketStartVoting}
+                                                  webSocketVote={this.state.webSocketVote}
+                                                  webSocketFinishVoting={this.state.webSocketFinishVoting}
+                                                  {...props}/>}/>
+                            <Redirect to="/boards"/>
+                        </Switch>
+                        :
+                        <Switch>
+                            <Route exact={true} path="/sign-in"
+                                   render={(props) => <MainArea onAuthStateChange={this.handleAuthStatusChange}
+                                                                webSocketStartVoting={this.state.webSocketStartVoting}
+                                                                webSocketVote={this.state.webSocketVote}
+                                                                webSocketFinishVoting={this.state.webSocketFinishVoting}
+                                                                isLoggedIn={this.state.isLoggedIn} {...props} />}/>
+                            <Redirect from="/" to="/sign-in"/>
+                        </Switch>
                 }
             </div>
         );
