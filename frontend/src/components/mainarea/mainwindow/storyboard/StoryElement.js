@@ -38,15 +38,16 @@ class StoryElement extends Component {
     render() {
         console.log(this.props.isUserAdminOfBoard);
 
+        let estimation = this.props.estimation ? this.props.estimation : '-';
         return (
-            <TableTrClickableTitle isFinished={this.props.finishTime}>
-                <TableNamedTd onClick={this.goToStory}>{this.props.description}</TableNamedTd>
+            <TableTrClickableTitle>
+                <TableNamedTd onClick={this.goToStory} isFinished={this.props.estimation}>{this.props.description}</TableNamedTd>
                 <TableHiddenXs
                     onClick={this.goToStory}>{String(this.props.startTime).replace('T', ' / ')} </TableHiddenXs>
                 <TableHiddenXs
                     onClick={this.goToStory}>{String(this.props.finishTime).replace('T', ' / ')}</TableHiddenXs>
                 <TableHiddenXs onClick={this.goToStory}>stub</TableHiddenXs>
-                <TableHiddenXs onClick={this.goToStory}>{this.props.estimation}</TableHiddenXs>
+                <TableHiddenXs onClick={this.goToStory}>{estimation}</TableHiddenXs>
                 {this.props.isUserAdminOfBoard === true && <TableEditIcon onClick={(e) => this.editStory(e)}>
                     <StoryEditIAttribute/>
                 </TableEditIcon>}

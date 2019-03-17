@@ -299,7 +299,7 @@ class Timer extends Component {
             ? <div onClick={this.startTimer}><StartButton name={"Start voting"}/></div>
             : null;
 
-        let stop = (isUserAdmin && (this.state.time !== 0 && !this.state.isFinished))
+        let stop = (isUserAdmin && (this.state.time !== 0 && !this.state.isFinished && !this.state.finishTime))
             ? <div onClick={this.stopTimer}><StartButton name={"Finish voting"}/></div>
             : null;
 

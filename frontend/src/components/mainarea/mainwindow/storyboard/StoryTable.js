@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import StoryPagination from "./StoryPagination";
 import {Table, TableRow, TableThStyle, TableThStyleHidden, TableThStyleModal} from "../style/MainWindowStyle";
 
+const tableStyle = {
+    background: '#2a64960d'
+};
+
 class StoryTable extends Component {
 
     render() {
@@ -9,7 +13,7 @@ class StoryTable extends Component {
             <TableRow>
                 <Table>
                     <thead>
-                    <tr>
+                    <tr style={tableStyle}>
                         <TableThStyle>Title</TableThStyle>
                         <TableThStyleHidden>Start time</TableThStyleHidden>
                         <TableThStyleHidden>Finish time</TableThStyleHidden>

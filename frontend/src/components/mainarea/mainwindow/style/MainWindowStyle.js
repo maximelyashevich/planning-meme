@@ -34,8 +34,7 @@ const TableThStyleModal = styled(TableThStyle).attrs({
 
 const TableTrClickableTitle = styled.tr.attrs({
     className: "clickable ng-scope"
-})`cursor: pointer;
-   background: ${props => props.isFinished ? '#428bca2e' : 'transparent'};`;
+})`cursor: pointer;`;
 
 const CreateBoardButtonAttribute = styled.a.attrs({
     className: "btn btn-primary pull-right fa btn btn-default",
@@ -59,7 +58,13 @@ const CreateButton = styled.div.attrs({
 
 const TableNamedTd = styled.td.attrs({
     className: "name-td"
-})``;
+})`background: ${props => props.isFinished
+                                       ? props.isFinished<=13
+                                               ? '#00800059'
+                                               :  props.isFinished<=40
+                                                   ? '#ffa50057'
+                                                   : '#ffa9877a'
+                                       : 'transparent'};`;
 
 const TableHiddenXs = styled.td.attrs({
     className: "hidden-xs"
