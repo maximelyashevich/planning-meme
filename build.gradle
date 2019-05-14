@@ -34,6 +34,7 @@ ext {
     cucumberJava8Version = '1.2.5'
     cucumberJunitVersion = '1.2.4'
     jacksonVersion = '2.0.1'
+    jmhVersion = '1.17.5'
 }
 
 repositories {
@@ -95,6 +96,8 @@ dependencies {
     testCompile "info.cukes:cucumber-java8:${cucumberJava8Version}"
     testCompile "info.cukes:cucumber-spring:${cucumberJava8Version}"
     testCompile "info.cukes:cucumber-junit:${cucumberJunitVersion}"
+    testCompile "org.openjdk.jmh:jmh-core:${jmhVersion}"
+    testCompile "org.openjdk.jmh:jmh-generator-annprocess:${jmhVersion}"
 
     task buildUi(type: Exec) {
         commandLine './buildUI.bat'
